@@ -13,6 +13,8 @@ int main()
 	long divider = 1;
 	vector<long> store;
 	long largest = 0;
+
+	/*Run through the number and store its digits*/
 	while (divider <= num)
 	{
 		store.push_back(num/divider % 10);
@@ -39,6 +41,8 @@ int main()
 				tmp.push_back('0');
 			}
 		}
+
+		/*Remove all leading zeroes then print*/
 		tmp.erase(0, tmp.find_first_not_of('0'));
 		cout << tmp << " ";
 	}
