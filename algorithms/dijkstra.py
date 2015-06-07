@@ -31,8 +31,8 @@ for edge in edges:
             node.neighbour_weights.append(edge[2])
 
 #Perform Dijkstra's
-while graph[-1].seen != True:
-    pass
+#while graph[-1].seen != True:
+#    pass
 
 for node in graph:
     print (node.name)
