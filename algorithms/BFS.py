@@ -1,46 +1,37 @@
 class Node(object):
     def __init__(self, name):
         self.name = name
-        self.seen = False
         self.neighbours = []
+
+def set_nodes_of_edge(graph, node_name, node_list, node):
+    if node_name not in node_list:
+        node_list.append(node_name)
+        node.append(Node(node_name))
+        graph.append(node[0])
+    else:
+        for found_node in graph:
+            if found_node.name == node_name:
+                node.append(found_node)
+                break
 
 def load_graph_edges(edge_list):
     node_list = []
     graph = []
     for edge in edge_list:
-        node_a = edge[0] if edge[0] < edge[1] else edge[1]
-        node_b = edge[1] if edge[1] > edge[0] else edge[0]
-        node_A = []
-        node_B = []
+        node_a_name = edge[0]
+        node_b_name = edge[1]
+        node_a = []
+        node_b = []
 
-        # Create/get nodeA
-        if node_a not in node_list:
-            node_list.append(node_a)
-            node_A.append(Node(node_a))
-            graph.append(node_A[0])
-        else:
-            for node in graph:
-                if node.name == node_a:
-                    node_A.append(node)
-                    break
-
-        # Create/get nodeB
-        if node_b not in node_list:
-            node_list.append(node_b)
-            node_B.append(Node(node_b))
-            graph.append(node_B[0])
-        else:
-            for node in graph:
-                if node.name == node_b:
-                    node_B.append(node)
-                    break
+        set_nodes_of_edge(graph, node_a_name, node_list, node_a)
+        set_nodes_of_edge(graph, node_b_name, node_list, node_b)
 
         # Add nodeA/B to each other as neighbours
         for node in graph:
-            if node.name == node_a:
-                node.neighbours.append(node_B[0])
-            if node.name == node_b:
-                node.neighbours.append(node_A[0])
+            if node.name == node_a_name:
+                node.neighbours.append(node_b[0])
+            if node.name == node_b_name:
+                node.neighbours.append(node_a[0])
 
     return graph
 
@@ -67,11 +58,5 @@ def get_bfs_list(edges):
 
     return bfs_list
 
-
 #edges = [['A','B'], ['A','C'], ['B','C'], ['B','D'], ['B','E'], ['C','D'], ['C','E'], ['D','E'],['D','F'],['E','F']]
-edges = [['A','D'], ['A','E'], ['D','C'], ['D','B'], ['E','B'], ['B','C']]
-
-bfs = get_bfs_list(edges)
-for node in bfs:
-    print (node.name)
-
+#edges = [['A','D'], ['A','E'], ['D','C'], ['D','B'], ['E','B'], ['B','C']]
