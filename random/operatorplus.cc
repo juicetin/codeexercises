@@ -37,6 +37,8 @@ class Date
 		int m_dummy;
 };
 
+
+
 //Date &operator+(Date d, int n)
 //{
 //	cout << "calling non-member operator+" << endl;
@@ -45,11 +47,9 @@ class Date
 
 Date operator+(int n, Date d)
 {
-	Date tmp = d;
+	d += n;
 	cout << "calling member opreator+ with swapped args" << endl;
-	//tmp.m_dummy = tmp.m_dummy + n;
-	tmp.setValue(tmp.getValue() + n);
-	return tmp;
+	return d;
 }
 
 int main()

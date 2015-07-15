@@ -20,9 +20,9 @@ class Graph
 		Graph() {}
 
 		std::vector<Node> nodes_;
-}
+};
 
 int main()
 {
-
+	std::cout << "sadf" << std::endl;
 }
