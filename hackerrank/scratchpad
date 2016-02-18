@@ -1,0 +1,28 @@
+ 2 -1 2 3 4 -5
+
+ 2                  sum 2   
+ 2 -1               sum 1
+ 2 -1 2             
+
+ 2  2
+ 1  2-1
+ 3  2-1+2
+ 6  2-1+2+3
+ 10 2-1+2+3+4
+
+1
+6
+2 -1 2 3 4 -5
+
+max_so_far = max_here = 0
+
+max_here = max(0, max_here+2) | == 2
+max_so_far = max(max_so_far, max_here) | == 2
+
+max_here = max(0, max_here-1) | == 1
+max_so_far = max(max_so_far, max_here) | == 2
+
+max_here = max(0, max_here+2) | == 3
+max_so_far = max(max_so_far, max_here) | == 3
+
+max_here
