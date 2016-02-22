@@ -4,4 +4,4 @@ all : $(SRCS:.cc=)
 
 # NOTE - unneeded, works without
 .cc:
-	g++ $(CPFLAGS) $< -o $@
+	g++ -std=c++11 $(CPFLAGS) $< -o $@
