@@ -1,73 +1,90 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 using namespace std;
 
 void find_cur_longest(vector<int> arr, vector<int> *LIS, vector<vector<int>> *sub_LIS) {
 }
 
-void LIS(vector<int> arr) {
-    // vector<vector<int>> sub_LIS;
-    // vector<int> LIS;
-    vector<int> sub_LIS;
-    int LIS = 0;
+// Find largest value smaller than val
+int binary_search(int arr[], int val, int left, int right) {
+    // while (right - left > 1) {
+    //     int mid_i = (left+right)/2;
+    //     if (arr[mid_i] >= val) {
+    //         right = mid_i;
+    //     } else {
+    //         left = mid_i;
+    //     }
+    // }
 
-    // Go through each number in array
-    // for (auto it_arr = arr.begin(); it_arr != arr.end(); ++it_arr) {
-    for (int i = 0; i < arr.size(); ++i) {
-        // int num = *it_arr;
-        int num = arr[i];
+    // return right;
 
-        // Initial longest list is empty
-        // vector<int> cur_LIS;
-        int cur_LIS = 0;
-
-        // Find previous LIS whose last value < num
-        // for (auto it_this_LIS = sub_LIS.begin(); it_this_LIS != sub_LIS.end(); ++it_this_LIS) {
-        for (int j = 0; j < sub_LIS.size(); ++j) {
-            int this_LIS = sub_LIS[j];
-            // vector<int> this_LIS = *it_this_LIS;
-
-            // int this_LIS_len = this_LIS.size();
-
-            // // Check if previous LIS is longer than current with smaller last value then cur num
-            // if (this_LIS_len > 0 && this_LIS.back() < num && 
-            //         this_LIS_len > cur_LIS.size()) {
-            //     cur_LIS = this_LIS;
-            // }
-            if (this_LIS > cur_LIS && num > arr[j]) {
-                cur_LIS = this_LIS;
-            }
-        }
-        // cur_LIS.push_back(num);
-        // sub_LIS.push_back(cur_LIS);
-        cur_LIS++;
-        sub_LIS.push_back(cur_LIS);
-
-        // if (cur_LIS.size() > LIS.size()) {
-        //     LIS = cur_LIS;
-        // }
-        if (cur_LIS > LIS) {
-            LIS = cur_LIS;
-        }
+    if (right - left <= 1) {
+        return right;
     }
 
-    // cout << LIS.size() << endl;
+    int mid = (right+left)/2;
+    if (arr[mid] >= val) {
+        right = mid;
+        return binary_search(arr, val, left, right);
+    } else {
+        left = mid;
+        return binary_search(arr, val, left, right);
+    }
+}
+
+void LIS(int arr[], int arr_size) {
+
+    // Value at index 'i' is larger value in sub LIS of length 'i'
+    int sub_LIS[arr_size];
+    for (int i = 0; i < arr_size; ++i) {
+        sub_LIS[i] = 0;
+    }
+
+    int LIS = 1;
+    sub_LIS[0] = arr[0];
+
+    // Go through each number in array
+    for (int i = 1; i < arr_size; ++i) {
+        int num = arr[i];
+
+        // If number is smaller than smallest,
+        //  replace it
+        if (num < sub_LIS[0]) {
+            sub_LIS[0] = num;
+
+        // If number is larger than largest, extend list
+        } else if (num > sub_LIS[LIS-1]) {
+            sub_LIS[LIS++] = num;
+
+        } else {
+
+        // Otherwise, find largest number smaller than current num,
+        //  and replace the sub LIS that is one longer than that
+            int index = binary_search(sub_LIS, num, 0, LIS-1);
+            sub_LIS[index] = num;
+        }
+        // for (int i : sub_LIS) {
+        //     cout << i << " ";
+        // } cout << endl;
+    }
+
+    // for (int i : sub_LIS) {
+    //     cout << i << " ";
+    // } cout << endl;
     cout << LIS << endl;
-    // for (LIS_item : LIS) {
-    //     cout << LIS_item << " ";
-    // }
 }
 
 int main() {
     int n;
     cin >> n;
-    vector<int> arr;
+    int arr[n];
     for (int i = 0; i < n; i++) {
         int num;
         cin >> num;
-        arr.push_back(num);
+        arr[i] = num;
     }
 
-    LIS(arr);
+    LIS(arr, n);
 }
