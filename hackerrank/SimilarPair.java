@@ -16,9 +16,6 @@ public class SimilarPair {
             int nodes = Integer.parseInt(parts[0]);
             int k = Integer.parseInt(parts[1]);
 
-            // Store existing set of stored nodes
-            Set<Integer> curNodeValues = new HashSet<Integer>();
-
             // New unordered binary tree
             BinaryTree tree = new BinaryTree();
 

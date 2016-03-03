@@ -6,6 +6,7 @@
 #include <cstdio>
 using namespace std;
 
+// Prints a staircase of hashes
 int main(){
     int n;
     cin >> n;
