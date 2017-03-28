@@ -1,0 +1,5 @@
+numbers = list(map(int, input().split(' ')))
+smallest = min(numbers)
+largest = max(numbers)
+total = sum(numbers)
+print(total-largest, total-smallest)
