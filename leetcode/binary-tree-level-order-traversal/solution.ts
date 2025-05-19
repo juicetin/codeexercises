@@ -12,6 +12,17 @@
  * }
  */
 
+ class TreeNode {
+     val: number
+     left: TreeNode | null
+     right: TreeNode | null
+     constructor(val?: number, left?: TreeNode | null, right?: TreeNode | null) {
+         this.val = (val===undefined ? 0 : val)
+         this.left = (left===undefined ? null : left)
+         this.right = (right===undefined ? null : right)
+     }
+ }
+
 function levelOrder(root: TreeNode | null): number[][] {
     const levelOrderTraversal: number[][] = []
     if (!root) {
@@ -27,7 +38,10 @@ function levelOrder(root: TreeNode | null): number[][] {
         const nextLayerNumbers: number[] = []
 
         while (queue.length > 0) {
-            currentLayerNodes.push(queue.shift())
+            const poppedValue = queue.shift()
+            if (poppedValue) {
+                currentLayerNodes.push(poppedValue)
+            }
         }
 
         for (const currentLayerNode of currentLayerNodes) {
